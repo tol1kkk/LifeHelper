@@ -7,6 +7,7 @@ import GoalsPage from "./pages/GoalsPage/GoalsPage";
 import NotesPage from "./pages/NotesPage/NotesPage";
 import StatisticsPage from "./pages/StatisticsPage/StatisticsPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import BottomNav from "./components/BottomNav/BottomNav.jsx";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/statistics" element={<StatisticsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
+        <BottomNav />
       </div>
     </BrowserRouter>
   );
