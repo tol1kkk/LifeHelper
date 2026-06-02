@@ -62,13 +62,13 @@ export default function HomePage() {
         <h3 className="sectionTitle">Quick Access</h3>
 
         <div className="quickGrid">
-          <div className="quickCard card">
-            <span className="quickIcon purple">✓</span>
-            <div className="quickContent">
-              <h4 className="quickTitle">Tasks</h4>
-              <p className="quickText">Manage your tasks</p>
+            <div className="quickCard card">
+              <span className="quickIcon purple">✓</span>
+              <div className="quickContent">
+                <h4 className="quickTitle">Tasks</h4>
+                <p className="quickText">Manage your tasks</p>
+              </div>
             </div>
-          </div>
 
           <div className="quickCard card">
             <span className="quickIcon green">💳</span>
