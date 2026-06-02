@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./HomePage.css";
 
 export default function HomePage() {
@@ -62,37 +63,45 @@ export default function HomePage() {
         <h3 className="sectionTitle">Quick Access</h3>
 
         <div className="quickGrid">
+          <NavLink to="/tasks">
             <div className="quickCard card">
-              <span className="quickIcon purple">✓</span>
+              <span className="quickIcon purple"></span>
               <div className="quickContent">
                 <h4 className="quickTitle">Tasks</h4>
                 <p className="quickText">Manage your tasks</p>
               </div>
             </div>
+          </NavLink>
 
-          <div className="quickCard card">
-            <span className="quickIcon green">💳</span>
-            <div className="quickContent">
-              <h4 className="quickTitle">Budget</h4>
-              <p className="quickText">Track income & expenses</p>
+          <NavLink to="/budget">
+            <div className="quickCard card">
+              <span className="quickIcon green"></span>
+              <div className="quickContent">
+                <h4 className="quickTitle">Budget</h4>
+                <p className="quickText">Track income & expenses</p>
+              </div>
             </div>
-          </div>
+          </NavLink>
 
-          <div className="quickCard card">
-            <span className="quickIcon orange">◎</span>
-            <div className="quickContent">
-              <h4 className="quickTitle">Goals</h4>
-              <p className="quickText">Track your savings goals</p>
+          <NavLink to="/goals">
+            <div className="quickCard card">
+              <span className="quickIcon orange"></span>
+              <div className="quickContent">
+                <h4 className="quickTitle">Goals</h4>
+                <p className="quickText">Track your savings goals</p>
+              </div>
             </div>
-          </div>
+          </NavLink>
 
-          <div className="quickCard card">
-            <span className="quickIcon blue">▤</span>
-            <div className="quickContent">
-              <h4 className="quickTitle">Notes</h4>
-              <p className="quickText">Your notes and ideas</p>
+          <NavLink to="/notes">
+            <div className="quickCard card">
+              <span className="quickIcon blue"></span>
+              <div className="quickContent">
+                <h4 className="quickTitle">Notes</h4>
+                <p className="quickText">Your notes and ideas</p>
+              </div>
             </div>
-          </div>
+          </NavLink>
         </div>
       </section>
 
