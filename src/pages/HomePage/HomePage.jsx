@@ -65,7 +65,7 @@ export default function HomePage() {
         <div className="quickGrid">
           <NavLink to="/tasks">
             <div className="quickCard card">
-              <span className="quickIcon purple"></span>
+              <span className="quickIcon purple"><img src="/check.png" alt="" className="icons_home"/></span>
               <div className="quickContent">
                 <h4 className="quickTitle">Tasks</h4>
                 <p className="quickText">Manage your tasks</p>
@@ -75,7 +75,7 @@ export default function HomePage() {
 
           <NavLink to="/budget">
             <div className="quickCard card">
-              <span className="quickIcon green"></span>
+              <span className="quickIcon green"><img src="/wallet.png" alt="" className="icons_home"/></span>
               <div className="quickContent">
                 <h4 className="quickTitle">Budget</h4>
                 <p className="quickText">Track income & expenses</p>
@@ -85,7 +85,7 @@ export default function HomePage() {
 
           <NavLink to="/goals">
             <div className="quickCard card">
-              <span className="quickIcon orange"></span>
+              <span className="quickIcon orange"><img src="/target.png" alt="" className="icons_home"/></span>
               <div className="quickContent">
                 <h4 className="quickTitle">Goals</h4>
                 <p className="quickText">Track your savings goals</p>
@@ -95,7 +95,7 @@ export default function HomePage() {
 
           <NavLink to="/notes">
             <div className="quickCard card">
-              <span className="quickIcon blue"></span>
+              <span className="quickIcon blue"><img src="/wirte.png" alt="" className="icons_home"/></span>
               <div className="quickContent">
                 <h4 className="quickTitle">Notes</h4>
                 <p className="quickText">Your notes and ideas</p>
