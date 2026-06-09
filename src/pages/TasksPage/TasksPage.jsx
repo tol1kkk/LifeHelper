@@ -51,26 +51,26 @@ export default function TasksPage() {
   // СОРТУВАННЯ РІВЕНЬ СЛАДНОСТІ ЗАВДАННЯ ТА ТАКОЖ COMPLETED ACTIVE
 
   const priorityOrder = {
-  High: 1,
-  Medium: 2,
-  Low: 3,
-};
+    High: 1,
+    Medium: 2,
+    Low: 3,
+  };
 
-const filteredTasks = tasks
-  .filter((task) => {
-    if (filter === "Active") return !task.completed;
-    if (filter === "Completed") return task.completed;
-    return true;
-  })
-  .sort((a, b) => {
-    if (filter === "All") {
-      if (a.completed !== b.completed) {
-        return a.completed - b.completed;
+  const filteredTasks = tasks
+    .filter((task) => {
+      if (filter === "Active") return !task.completed;
+      if (filter === "Completed") return task.completed;
+      return true;
+    })
+    .sort((a, b) => {
+      if (filter === "All") {
+        if (a.completed !== b.completed) {
+          return a.completed - b.completed;
+        }
       }
-    }
 
-    return priorityOrder[a.priority] - priorityOrder[b.priority];
-  });
+      return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
 
   function toggleTask(id) {
     setTasks(
@@ -92,7 +92,7 @@ const filteredTasks = tasks
 
       <section className="tasksTop">
         <h1>My Tasks</h1>
-        <button className="addTaskButton">+ Add Task</button>
+        <button className="addTaskButton">+ New Task</button>
       </section>
 
       <section className="tasksFilters">
@@ -109,7 +109,10 @@ const filteredTasks = tasks
 
       <section className="tasksList">
         {filteredTasks.map((task) => (
-          <div key={task.id} className="taskCard">
+          <div
+            key={task.id}
+            className={task.completed ? "taskCard completedCard" : "taskCard"}
+          >
             <button
               onClick={() => toggleTask(task.id)}
               className={task.completed ? "taskCheck activeCheck" : "taskCheck"}
