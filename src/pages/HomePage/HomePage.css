@@ -1,10 +1,16 @@
+/* =========================
+   PAGE LAYOUT
+========================= */
+
 .homePage {
   display: flex;
   flex-direction: column;
   gap: 26px;
 }
 
-/* HEADER */
+/* =========================
+   HEADER SECTION
+========================= */
 
 .homeHeader {
   display: flex;
@@ -57,37 +63,32 @@
   gap: 12px;
 }
 
-.avatar {
-  width: 58px;
-  height: 58px;
+/* =========================
+   HEADER BUTTONS
+========================= */
 
-  border-radius: 50%;
-  overflow: hidden;
-
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.avatarButton
-{
-  position: relative;
-
+.avatarButton {
   width: 57px;
   height: 57px;
 
-  border-radius: 100%;
+  border-radius: 50%;
   border: none;
 
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 }
+
+.avatarButton img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
 .notificationButton {
   position: relative;
 
@@ -97,20 +98,23 @@
   border-radius: 18px;
   border: none;
 
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  cursor: pointer;
 }
 
 .notificationButton img {
   width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .notificationButton span {
   position: absolute;
-
   top: 12px;
   right: 12px;
 
@@ -121,7 +125,9 @@
   background: var(--accent-purple);
 }
 
-/* SUMMARY */
+/* =========================
+   DAILY SUMMARY SECTION
+========================= */
 
 .dailySummary {
   padding: 24px;
@@ -135,10 +141,16 @@
   margin-bottom: 24px;
 }
 
+.sectionHeader h3 {
+  margin: 0;
+}
+
 .sectionHeader span,
 .sectionHeader a {
   color: var(--accent-purple);
   font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .summaryContent {
@@ -148,7 +160,9 @@
   gap: 20px;
 }
 
-/* PROGRESS */
+/* =========================
+   PROGRESS CIRCLE
+========================= */
 
 .progressCircle {
   width: 150px;
@@ -157,12 +171,14 @@
   border-radius: 50%;
 
   background:
-    radial-gradient(circle at center,
+    radial-gradient(
+      circle at center,
       #15161c 58%,
-      transparent 59%),
+      transparent 59%
+    ),
     conic-gradient(
       var(--accent-purple) 0% 70%,
-      rgba(255,255,255,0.08) 70% 100%
+      rgba(255, 255, 255, 0.08) 70% 100%
     );
 
   display: flex;
@@ -184,7 +200,9 @@
   color: #8b8d98;
 }
 
-/* SUMMARY LIST */
+/* =========================
+   SUMMARY LIST
+========================= */
 
 .summaryList {
   flex: 1;
@@ -224,23 +242,27 @@
   font-size: 18px;
 }
 
+/* =========================
+   GLOBAL COLOR HELPERS
+========================= */
+
 .purple {
-  background: rgba(139,92,246,0.18);
+  background: rgba(139, 92, 246, 0.18);
   color: var(--accent-purple);
 }
 
 .green {
-  background: rgba(34,197,94,0.18);
+  background: rgba(34, 197, 94, 0.18);
   color: var(--accent-green);
 }
 
 .orange {
-  background: rgba(251,146,60,0.18);
+  background: rgba(251, 146, 60, 0.18);
   color: var(--accent-orange);
 }
 
 .blue {
-  background: rgba(59,130,246,0.18);
+  background: rgba(59, 130, 246, 0.18);
   color: var(--accent-blue);
 }
 
@@ -252,16 +274,31 @@
   color: var(--accent-orange);
 }
 
-/* QUICK ACCESS */
-.sectionTitle{
-    text-align: start;
-    font-size: 20px;
+/* =========================
+   QUICK ACCESS SECTION
+========================= */
+
+.sectionTitle {
+  margin: 0;
+  text-align: start;
+  font-size: 20px;
+}
+
+.quickAccess {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .quickGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+
+.quickGrid a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .quickCard {
@@ -291,6 +328,12 @@
   font-size: 22px;
 }
 
+.icons_home {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
 .quickContent {
   display: flex;
   flex-direction: column;
@@ -313,79 +356,155 @@
   line-height: 1.4;
 }
 
-/* TASKS */
+/* =========================
+   TODAY TASKS SECTION
+========================= */
 
-.taskList {
-  padding: 8px 20px;
-}
-
-.taskItem {
+.todayTasks {
   display: flex;
+  flex-direction: column;
+}
+
+.homeTaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 12px;
+}
+
+/* =========================
+   HOME TASK ITEM
+========================= */
+
+.homeTaskItem {
+  min-height: 42px;
+  padding: 8px 10px;
+
+  display: grid;
+  grid-template-columns: 24px 1fr auto auto;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
 
-  padding: 18px 0;
-
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.055);
 }
 
-.taskItem:last-child {
-  border-bottom: none;
-}
-
-.checkedBox,
-.emptyBox {
+.homeCheckedBox,
+.homeEmptyBox {
   width: 22px;
   height: 22px;
-
-  border-radius: 7px;
-}
-
-.checkedBox {
-  background: var(--accent-purple);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 900;
 }
 
-.emptyBox {
-  border: 2px solid rgba(255,255,255,0.12);
+.homeCheckedBox {
+  background: rgba(139, 92, 246, 0.22);
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  color: #ffffff;
 }
 
-.taskItem p {
-  flex: 1;
+.homeEmptyBox {
+  background: transparent;
+  border: 1.5px solid #343746;
+}
+
+.homeTaskName {
   margin: 0;
+  text-align: left;
+
+  color: #f5f5f7;
+  font-size: 12.5px;
+  font-weight: 800;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.taskDate {
-  color: #777987;
+.homeTaskDone {
+  text-decoration: line-through;
+  color: #8b8d98;
 }
 
-.tag {
-  padding: 5px 10px;
+.homeTaskTag {
+  font-size: 10.5px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.homeTaskDate {
+  padding: 4px 7px;
 
   border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
 
+  color: #9ca3af;
+  font-size: 10px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+/* =========================
+   EMPTY TASKS MESSAGE
+========================= */
+
+.homeEmptyTasks {
+  height: 86px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.homeEmptyTitle {
+  margin: 0 0 4px;
+  color: #f5f5f7;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.homeEmptyText {
+  color: #8b8d98;
   font-size: 12px;
+  font-weight: 600;
 }
 
-.greenTag {
-  background: rgba(34,197,94,0.14);
-  color: var(--accent-green);
+/* =========================
+   TASK CATEGORY COLORS
+========================= */
+
+.work {
+  color: #a78bfa;
 }
 
-.purpleTag {
-  background: rgba(139,92,246,0.14);
-  color: var(--accent-purple);
+.study {
+  color: #60a5fa;
 }
 
-.blueTag {
-  background: rgba(59,130,246,0.14);
-  color: var(--accent-blue);
+.health {
+  color: #4ade80;
 }
 
-/* WEEKLY */
+.self {
+  color: #cbd5e1;
+}
+
+/* =========================
+   WEEKLY PROGRESS SECTION
+========================= */
 
 .weeklyProgress {
   min-height: 220px;
