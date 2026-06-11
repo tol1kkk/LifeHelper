@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage/HomePage";
@@ -10,24 +11,28 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import BottomNav from "./components/BottomNav/BottomNav.jsx";
 
 export default function App() {
+  const [tasks, setTasks] = useState([]);
+
   return (
-
-    // ПЕРЕХІД МІЖ СТОРІНКАМИ 
-
     <BrowserRouter>
       <div className="app">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/" element={<HomePage tasks={tasks} />} />
+
+          <Route
+            path="/tasks"
+            element={<TasksPage tasks={tasks} setTasks={setTasks} />}
+          />
+
           <Route path="/budget" element={<BudgetPage />} />
           <Route path="/goals" element={<GoalsPage />} />
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/statistics" element={<StatisticsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
+
         <BottomNav />
       </div>
     </BrowserRouter>
   );
 }
-

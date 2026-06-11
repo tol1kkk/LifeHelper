@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import "./HomePage.css";
 
-export default function HomePage() {
+export default function HomePage({ tasks }) {
+  const homeTasks = tasks.slice(0, 4);
   return (
     <main className="homePage">
       <header className="homeHeader">
@@ -117,30 +118,44 @@ export default function HomePage() {
       <section className="todayTasks">
         <div className="sectionHeader">
           <h3 className="sectionTitle">Today's Tasks</h3>
-          <a href="/tasks">View all</a>
+          <NavLink to="/tasks">View all</NavLink>
         </div>
 
-        <div className="taskList card">
-          <div className="taskItem">
-            <span className="checkedBox">✓</span>
-            <p>Gym workout</p>
-            <span className="tag greenTag">Health</span>
-            <span className="taskDate">Today</span>
-          </div>
+        <div className="homeTaskList card">
+          {homeTasks.length === 0 ? (
+            <div className="homeEmptyTasks">
+              <p className="homeEmptyTitle">No tasks yet</p>
+              <span className="homeEmptyText">
+                Add your first task from Tasks page
+              </span>
+            </div>
+          ) : (
+            homeTasks.map((task) => (
+              <div className="homeTaskItem" key={task.id}>
+                <span
+                  className={task.completed ? "homeCheckedBox" : "homeEmptyBox"}
+                >
+                  {task.completed ? "✓" : ""}
+                </span>
 
-          <div className="taskItem">
-            <span className="emptyBox"></span>
-            <p>Finish React project</p>
-            <span className="tag purpleTag">Work</span>
-            <span className="taskDate">Tomorrow</span>
-          </div>
+                <p
+                  className={
+                    task.completed
+                      ? "homeTaskName homeTaskDone"
+                      : "homeTaskName"
+                  }
+                >
+                  {task.title}
+                </p>
 
-          <div className="taskItem">
-            <span className="emptyBox"></span>
-            <p>Study for exam</p>
-            <span className="tag blueTag">Study</span>
-            <span className="taskDate">Tomorrow</span>
-          </div>
+                <span className={`homeTaskTag ${task.category.toLowerCase()}`}>
+                  #{task.category}
+                </span>
+
+                <span className="homeTaskDate">{task.date}</span>
+              </div>
+            ))
+          )}
         </div>
       </section>
 

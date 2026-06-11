@@ -14,53 +14,18 @@ const levelTopic = {
   Study: "#Study",
 };
 
-export default function TasksPage() {
-  const [tasks, setTasks] = useState([]);
+export default function TasksPage({ tasks, setTasks }) {
   const [filter, setFilter] = useState("All");
-
-  // МОДАЛЬНЕ ВІКНО ДОДАВАННЯ ЗАВДАННЯ
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // МАКЕТ ДЛЯ БЛОКУ ЗАВДАННЯ
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
     priority: "Medium",
     category: "Work",
+    date: "Today",
   });
-
-  // ФУНКЦІЯ ДЛЯ ДОДАВАННЯ ЗАВДАННЯ / МОДАЛЬНЕ ВІКНО
-
-  function addNewTask() {
-    if (newTask.title.trim() === "") {
-      return;
-    }
-
-    const taskToAdd = {
-      // СТВОРЕННЯ УНІКАЛЬНОГО ID
-      id: Date.now(),
-      title: newTask.title,
-      description: newTask.description,
-      completed: false,
-      priority: newTask.priority,
-      category: newTask.category,
-    };
-
-    setTasks([taskToAdd, ...tasks]);
-
-    setNewTask({
-      title: "",
-      description: "",
-      priority: "Medium",
-      category: "Work",
-    });
-
-    setIsModalOpen(false);
-  }
-
-  // СОРТУВАННЯ РІВЕНЬ СЛАДНОСТІ ЗАВДАННЯ ТА ТАКОЖ COMPLETED ACTIVE
 
   const priorityOrder = {
     High: 1,
@@ -92,6 +57,35 @@ export default function TasksPage() {
     );
   }
 
+  function addNewTask() {
+    if (newTask.title.trim() === "") {
+      return;
+    }
+
+    const taskToAdd = {
+      id: Date.now(),
+      title: newTask.title,
+      description: newTask.description,
+      completed: false,
+      priority: newTask.priority,
+      category: newTask.category,
+      date: newTask.date,
+    };
+
+    setTasks([taskToAdd, ...tasks]);
+
+    setNewTask({
+      title: "",
+      description: "",
+      priority: "Medium",
+      category: "Work",
+      date: "Today",
+    });
+
+    setIsModalOpen(false);
+    setIsCategoryOpen(false);
+  }
+
   return (
     <main className="tasksPage">
       <header className="tasksHeader">
@@ -103,7 +97,10 @@ export default function TasksPage() {
       </header>
 
       <section className="tasksTop">
-        <h1 className="tasksTitle">My Tasks</h1>
+        <div>
+          <h1 className="tasksTitle">My Tasks</h1>
+        </div>
+
         <button onClick={() => setIsModalOpen(true)} className="addTaskButton">
           + New Task
         </button>
@@ -122,39 +119,50 @@ export default function TasksPage() {
       </section>
 
       <section className="tasksList">
-        {filteredTasks.map((task) => (
-          <div
-            key={task.id}
-            className={task.completed ? "taskCard completedCard" : "taskCard"}
-          >
-            <button
-              onClick={() => toggleTask(task.id)}
-              className={task.completed ? "taskCheck activeCheck" : "taskCheck"}
-            >
-              {task.completed ? "✓" : ""}
-            </button>
-
-            <div className="taskContent">
-              <h3 className="taskTitle">{task.title}</h3>
-              <p className="taskDescription">{task.description}</p>
-            </div>
-
-            <div className="taskTags">
-              <img
-                className="priorityImage"
-                src={levelImage[task.priority]}
-                alt={task.priority}
-              />
-
-              <span className={`categoryTag ${task.category.toLowerCase()}`}>
-                {levelTopic[task.category]}
-              </span>
-            </div>
+        {filteredTasks.length === 0 ? (
+          <div className="emptyTasks">
+            <h3 className="emptyTasksTitle">No tasks yet</h3>
+            <p className="emptyTasksText">
+              Create your first task to get started.
+            </p>
           </div>
-        ))}
-      </section>
+        ) : (
+          filteredTasks.map((task) => (
+            <div
+              key={task.id}
+              className={task.completed ? "taskCard completedCard" : "taskCard"}
+            >
+              <button
+                onClick={() => toggleTask(task.id)}
+                className={
+                  task.completed ? "taskCheck activeCheck" : "taskCheck"
+                }
+              >
+                {task.completed ? "✓" : ""}
+              </button>
 
-      {/* МОДАЛЬНЕ ВІКНО */}
+              <div className="taskContent">
+                <h3 className="taskTitle">{task.title}</h3>
+                <p className="taskDescription">{task.description}</p>
+              </div>
+
+              <div className="taskTags">
+                <img
+                  className="priorityImage"
+                  src={levelImage[task.priority]}
+                  alt={task.priority}
+                />
+
+                <span className={`categoryTag ${task.category.toLowerCase()}`}>
+                  {levelTopic[task.category]}
+                </span>
+
+                <span className="taskDueDate">{task.date}</span>
+              </div>
+            </div>
+          ))
+        )}
+      </section>
 
       {isModalOpen && (
         <div className="modalOverlay">
@@ -163,13 +171,16 @@ export default function TasksPage() {
               <div className="titleBlock">
                 <h2 className="modalTitle">Create New Task</h2>
                 <p className="modalSubtitle">
-                  Add a task with priority and category
+                  Add title, priority, category and due date
                 </p>
               </div>
 
               <button
                 className="modalCloseButton"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setIsCategoryOpen(false);
+                }}
               >
                 ×
               </button>
@@ -202,89 +213,100 @@ export default function TasksPage() {
               </div>
 
               <div className="modalField">
+                <label className="modalLabel">Due date</label>
+
+                <div className="dateOptions">
+                  {["Today", "Tomorrow", "This week"].map((date) => (
+                    <button
+                      key={date}
+                      type="button"
+                      className={
+                        newTask.date === date
+                          ? "dateOption dateOptionActive"
+                          : "dateOption"
+                      }
+                      onClick={() => setNewTask({ ...newTask, date })}
+                    >
+                      {date}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="modalField">
                 <label className="modalLabel">Priority</label>
 
                 <div className="priorityOptions">
-                  <button
-                    type="button"
-                    className={
-                      newTask.priority === "High"
-                        ? "priorityOption priorityOptionActive"
-                        : "priorityOption"
-                    }
-                    onClick={() => setNewTask({ ...newTask, priority: "High" })}
-                  >
-                    <img
-                      src="/hard.png"
-                      alt="High"
-                      className="priorityOptionIcon"
-                    />
-                    <span>High</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className={
-                      newTask.priority === "Medium"
-                        ? "priorityOption priorityOptionActive"
-                        : "priorityOption"
-                    }
-                    onClick={() =>
-                      setNewTask({ ...newTask, priority: "Medium" })
-                    }
-                  >
-                    <img
-                      src="/medium.png"
-                      alt="Medium"
-                      className="priorityOptionIcon"
-                    />
-                    <span>Medium</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className={
-                      newTask.priority === "Low"
-                        ? "priorityOption priorityOptionActive"
-                        : "priorityOption"
-                    }
-                    onClick={() => setNewTask({ ...newTask, priority: "Low" })}
-                  >
-                    <img
-                      src="/low.png"
-                      alt="Low"
-                      className="priorityOptionIcon"
-                    />
-                    <span>Low</span>
-                  </button>
+                  {["High", "Medium", "Low"].map((priority) => (
+                    <button
+                      key={priority}
+                      type="button"
+                      className={
+                        newTask.priority === priority
+                          ? "priorityOption priorityOptionActive"
+                          : "priorityOption"
+                      }
+                      onClick={() => setNewTask({ ...newTask, priority })}
+                    >
+                      <img
+                        src={levelImage[priority]}
+                        alt={priority}
+                        className="priorityOptionIcon"
+                      />
+                      <span>{priority}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
 
               <div className="modalField">
                 <label className="modalLabel">Category</label>
 
-                <div className="selectBox">
-                  <select
-                    className="modalSelect"
-                    value={newTask.category}
-                    onChange={(event) =>
-                      setNewTask({ ...newTask, category: event.target.value })
+                <div className="customSelect">
+                  <button
+                    type="button"
+                    className={
+                      isCategoryOpen
+                        ? "customSelectButton selectOpen"
+                        : "customSelectButton"
                     }
+                    onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                   >
-                    <option value="Work">#Work</option>
-                    <option value="Study">#Study</option>
-                    <option value="Health">#Health</option>
-                    <option value="Self">#Self</option>
-                  </select>
+                    <span>{levelTopic[newTask.category]}</span>
+                    <span className="customArrow">⌄</span>
+                  </button>
 
-                  <span className="selectArrow">⌄</span>
+                  {isCategoryOpen && (
+                    <div className="customOptions customOptionsUp">
+                      {["Work", "Study", "Health", "Self"].map((category) => (
+                        <button
+                          key={category}
+                          type="button"
+                          className={
+                            newTask.category === category
+                              ? "customOption customOptionActive"
+                              : "customOption"
+                          }
+                          onClick={() => {
+                            setNewTask({ ...newTask, category });
+                            setIsCategoryOpen(false);
+                          }}
+                        >
+                          {levelTopic[category]}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className="modalActions">
                 <button
                   className="modalCancelButton"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setIsCategoryOpen(false);
+                  }}
                 >
                   Cancel
                 </button>
