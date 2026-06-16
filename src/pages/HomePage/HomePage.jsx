@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./HomePage.css";
 
-export default function HomePage({ tasks }) {
+export default function HomePage({ tasks, profileData }) {
   const homeTasks = tasks.slice(0, 4);
   return (
     <main className="homePage">
@@ -13,11 +13,15 @@ export default function HomePage({ tasks }) {
         </div>
 
         <div className="headerActions">
-          <a href="/profile">
+          <NavLink to="/profile">
             <button className="avatarButton">
-              <img src="./userGrey.png" alt="User avatar" />
+              {profileData.avatar ? (
+                <img src={profileData.avatar} alt="User avatar" />
+              ) : (
+                <img src="/userGrey.png" alt="User avatar" />
+              )}
             </button>
-          </a>
+          </NavLink>
 
           <button className="notificationButton">
             <img src="./bell.png" alt="Notifications" />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage/HomePage";
@@ -13,11 +13,34 @@ import BottomNav from "./components/BottomNav/BottomNav.jsx";
 export default function App() {
   const [tasks, setTasks] = useState([]);
 
+  const [profileData, setProfileData] = useState(() => {
+    const savedProfile = localStorage.getItem("lifeHelperProfile");
+
+    if (savedProfile) {
+      return JSON.parse(savedProfile);
+    }
+
+    return {
+      avatar: "",
+      name: "",
+      username: "",
+      birthDate: "",
+      bio: "",
+    };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("lifeHelperProfile", JSON.stringify(profileData));
+  }, [profileData]);
+
   return (
     <BrowserRouter>
       <div className="app">
         <Routes>
-          <Route path="/" element={<HomePage tasks={tasks} />} />
+          <Route
+            path="/"
+            element={<HomePage tasks={tasks} profileData={profileData} />}
+          />
 
           <Route
             path="/tasks"
@@ -28,7 +51,7 @@ export default function App() {
           <Route path="/goals" element={<GoalsPage />} />
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/statistics" element={<StatisticsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage profileData={profileData} setProfileData={setProfileData} />} />
         </Routes>
 
         <BottomNav />
