@@ -80,13 +80,14 @@
   align-items: center;
   justify-content: center;
 
+  overflow: hidden;
   cursor: pointer;
 }
 
 .avatarButton img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .notificationButton {
@@ -171,11 +172,7 @@
   border-radius: 50%;
 
   background:
-    radial-gradient(
-      circle at center,
-      #15161c 58%,
-      transparent 59%
-    ),
+    radial-gradient(circle at center, #15161c 58%, transparent 59%),
     conic-gradient(
       var(--accent-purple) 0% 70%,
       rgba(255, 255, 255, 0.08) 70% 100%
