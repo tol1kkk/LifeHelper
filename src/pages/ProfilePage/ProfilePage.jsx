@@ -129,17 +129,6 @@ export default function ProfilePage({ profileData, setProfileData }) {
         </section>
       )}
 
-      <section className="premiumCard">
-        <div className="premiumIcon">♛</div>
-
-        <div className="premiumText">
-          <h3>LifeHelper Premium</h3>
-          <p>Unlock all features and boost your productivity.</p>
-        </div>
-
-        <button className="upgradeButton">Upgrade</button>
-      </section>
-
       <section className="profileOptions">
         <button
           className="profileOption"
