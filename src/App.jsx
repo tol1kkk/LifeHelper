@@ -56,21 +56,8 @@ export default function App() {
           <Route path="/goals" element={<GoalsPage />} />
 
           <Route path="/notes" element={<NotesPage />} />
-
-          <Route
-            path="/statistics"
-            element={<StatisticsPage tasks={tasks} />}
-          />
-
-          <Route
-            path="/profile"
-            element={
-              <ProfilePage
-                profileData={profileData}
-                setProfileData={setProfileData}
-              />
-            }
-          />
+          <Route path="/statistics" element={<StatisticsPage tasks={tasks} />} />
+          <Route path="/profile" element={<ProfilePage profileData={profileData} setProfileData={setProfileData} />} />
         </Routes>
 
         <BottomNav />

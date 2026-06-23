@@ -1,0 +1,622 @@
+/* =========================
+   STATISTICS PAGE LAYOUT
+========================= */
+
+.statisticsPage {
+  height: calc(100vh - 105px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-bottom: 18px;
+
+  scrollbar-width: none;
+}
+
+.statisticsPage::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.statisticsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statisticsLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statisticsLogo span {
+  width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+  background: var(--accent-purple);
+  color: white;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.5);
+}
+
+.statisticsLogoText {
+  margin: 0;
+  color: #f5f5f7;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+/* =========================
+   TOP SECTION
+========================= */
+
+.statisticsTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statisticsTitle {
+  margin: 0;
+
+  color: #f5f5f7;
+
+  font-size: 32px;
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.statisticsSubtitle {
+  margin: 5px 0 0;
+
+  color: #7d8190;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================
+   PERIOD TABS
+========================= */
+
+.periodTabs {
+  padding: 5px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.periodTab {
+  height: 38px;
+
+  border: none;
+  border-radius: 13px;
+
+  background: transparent;
+  color: #777987;
+
+  font-size: 12.5px;
+  font-weight: 850;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.periodTab:hover {
+  color: #c7c9d1;
+}
+
+.activePeriodTab {
+  background: rgba(139, 92, 246, 0.22);
+  color: #ffffff;
+  box-shadow: inset 0 -2px 0 rgba(139, 92, 246, 0.75);
+}
+
+/* =========================
+   STATS GRID
+========================= */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.statCard {
+  min-height: 104px;
+  padding: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.statLabel {
+  margin: 0 0 7px;
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.statValue {
+  margin: 0;
+
+  color: #f5f5f7;
+
+  font-size: 27px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.8px;
+}
+
+.statSmallText {
+  display: block;
+  margin-top: 7px;
+
+  color: #8b8d98;
+
+  font-size: 11.5px;
+  font-weight: 650;
+}
+
+.statIconBox {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.greenStat {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.greenStat .statLabel {
+  color: #86efac;
+}
+
+.greenStat .statIconBox {
+  background: rgba(34, 197, 94, 0.25);
+  color: #4ade80;
+}
+
+.purpleStat {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.15),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.purpleStat .statLabel {
+  color: #c4b5fd;
+}
+
+.blueStat {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.12),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.blueStat .statLabel {
+  color: #93c5fd;
+}
+
+.blueStat .statIconBox {
+  background: rgba(59, 130, 246, 0.24);
+  color: #60a5fa;
+}
+
+.orangeStat {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 146, 60, 0.12),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.orangeStat .statLabel {
+  color: #fdba74;
+}
+
+/* =========================
+   CIRCLE PROGRESS
+========================= */
+
+.circleProgress {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at center, #15161c 55%, transparent 56%),
+    conic-gradient(#a855f7 0% 76%, rgba(255, 255, 255, 0.08) 76% 100%);
+}
+
+.orangeCircle {
+  background:
+    radial-gradient(circle at center, #15161c 55%, transparent 56%),
+    conic-gradient(#fb923c 0% 65%, rgba(255, 255, 255, 0.08) 65% 100%);
+}
+
+.circleProgress span {
+  color: #f5f5f7;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.statisticsSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.statisticsSectionTitle {
+  margin: 0;
+
+  color: #f5f5f7;
+
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.statisticsSectionHeader p {
+  margin: 4px 0 0;
+  color: #8b8d98;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.statisticsSectionHeader span {
+  color: #c4b5fd;
+  font-size: 12px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+/* =========================
+   CHART CARD
+========================= */
+
+.chartCard {
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* =========================
+   LINE CHART
+========================= */
+
+.lineChartBox {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lineChart {
+  width: 100%;
+  height: 155px;
+
+  border-radius: 16px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(139, 92, 246, 0.08),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+
+.chartArea {
+  fill: url(#taskGradient);
+}
+
+.chartLine {
+  fill: none;
+  stroke: #8b5cf6;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.45));
+}
+
+.chartDot {
+  fill: #c4b5fd;
+  stroke: #15161c;
+  stroke-width: 3;
+}
+
+.chartLabels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.chartLabels span {
+  color: #777987;
+  font-size: 11px;
+  font-weight: 750;
+  text-align: center;
+}
+
+/* =========================
+   FINANCE OVERVIEW
+========================= */
+
+.financeOverviewCard {
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.financeRows {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.financeRow {
+  min-height: 42px;
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 13px;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.financeRow span {
+  color: #8b8d98;
+  font-size: 12.5px;
+  font-weight: 750;
+}
+
+.financeRow strong {
+  color: #f5f5f7;
+  font-size: 13.5px;
+  font-weight: 850;
+}
+
+.incomeText {
+  color: #4ade80 !important;
+}
+
+.expenseText {
+  color: #f87171 !important;
+}
+
+/* =========================
+   RECENT ACTIVITY
+========================= */
+
+.activityCard {
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.activityList {
+  max-height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: none;
+}
+
+.activityList::-webkit-scrollbar {
+  display: none;
+}
+
+.activityItem {
+  min-height: 58px;
+  padding: 10px 12px;
+
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  align-items: center;
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.activityIcon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.budgetActivityIcon {
+  background: rgba(34, 197, 94, 0.14);
+  color: #4ade80;
+}
+
+.goalActivityIcon {
+  background: rgba(251, 146, 60, 0.14);
+}
+
+.activityInfo {
+  min-width: 0;
+}
+
+.activityInfo h4 {
+  margin: 0 0 4px;
+  color: #f5f5f7;
+  font-size: 13px;
+  font-weight: 850;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityInfo p {
+  margin: 0;
+  color: #8b8d98;
+  font-size: 11.5px;
+  font-weight: 650;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityItem strong {
+  color: #f5f5f7;
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+/* =========================
+   EMPTY ACTIVITY
+========================= */
+
+.emptyActivity {
+  min-height: 110px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.emptyActivity h3 {
+  margin: 0 0 5px;
+  color: #f5f5f7;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.emptyActivity p {
+  margin: 0;
+  color: #8b8d98;
+  font-size: 12px;
+  font-weight: 650;
+  text-align: center;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  .statisticsTitle {
+    font-size: 30px;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .statCard {
+    min-height: 100px;
+    padding: 13px;
+  }
+
+  .statValue {
+    font-size: 24px;
+  }
+
+  .barTrack {
+    width: 22px;
+  }
+}
