@@ -50,7 +50,7 @@ export default function App() {
           <Route path="/budget" element={<BudgetPage />} />
           <Route path="/goals" element={<GoalsPage />} />
           <Route path="/notes" element={<NotesPage />} />
-          <Route path="/statistics" element={<StatisticsPage />} />
+          <Route path="/statistics" element={<StatisticsPage tasks={tasks} />} />
           <Route path="/profile" element={<ProfilePage profileData={profileData} setProfileData={setProfileData} />} />
         </Routes>
 
