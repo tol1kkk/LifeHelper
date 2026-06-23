@@ -30,7 +30,11 @@ export default function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem("lifeHelperProfile", JSON.stringify(profileData));
+    try {
+      localStorage.setItem("lifeHelperProfile", JSON.stringify(profileData));
+    } catch (error) {
+      console.log("Profile storage is full:", error);
+    }
   }, [profileData]);
 
   return (
@@ -48,7 +52,9 @@ export default function App() {
           />
 
           <Route path="/budget" element={<BudgetPage />} />
+
           <Route path="/goals" element={<GoalsPage />} />
+
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/statistics" element={<StatisticsPage tasks={tasks} />} />
           <Route path="/profile" element={<ProfilePage profileData={profileData} setProfileData={setProfileData} />} />

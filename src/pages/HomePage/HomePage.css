@@ -1,102 +1,113 @@
 /* =========================
-   PAGE LAYOUT
+   HOME PAGE LAYOUT
 ========================= */
 
 .homePage {
+  height: calc(100vh - 105px);
+
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 20px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-bottom: 18px;
+
+  scrollbar-width: none;
+}
+
+.homePage::-webkit-scrollbar {
+  display: none;
 }
 
 /* =========================
-   HEADER SECTION
+   HEADER
 ========================= */
 
 .homeHeader {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.headerText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  gap: 2px;
+.homeHeaderText {
+  min-width: 0;
 }
 
-.greeting {
+.homeGreeting {
   margin: 0;
+
   color: #9ca3af;
-  font-size: 25px;
+
+  font-size: 20px;
   font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.3px;
+  line-height: 1.25;
 }
 
-.userName {
-  margin: 6px 0 10px;
-  color: #ffffff;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1px;
+.homeUserName {
+  margin: 5px 0 7px;
 
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: #f5f5f7;
+
+  font-size: 31px;
+  font-weight: 850;
+  line-height: 1.05;
+  letter-spacing: -0.9px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.subtitle {
+.homeSubtitle {
   margin: 0;
+
   color: #777987;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.5;
-  max-width: 260px;
+
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.headerActions {
+.homeHeaderActions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* =========================
-   HEADER BUTTONS
-========================= */
+.homeAvatarLink {
+  text-decoration: none;
+}
 
-.avatarButton {
-  width: 57px;
-  height: 57px;
+.homeAvatarButton {
+  width: 54px;
+  height: 54px;
+
+  padding: 0;
 
   border-radius: 50%;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   background: rgba(255, 255, 255, 0.05);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   overflow: hidden;
   cursor: pointer;
 }
 
-.avatarButton img {
+.homeAvatarButton img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.notificationButton {
+.homeNotificationButton {
   position: relative;
 
-  width: 54px;
-  height: 54px;
+  width: 52px;
+  height: 52px;
 
-  border-radius: 18px;
+  border-radius: 17px;
   border: none;
 
   background: rgba(255, 255, 255, 0.05);
@@ -108,16 +119,14 @@
   cursor: pointer;
 }
 
-.notificationButton img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
+.homeNotificationButton img {
+  width: 23px;
 }
 
-.notificationButton span {
+.homeNotificationButton span {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 11px;
+  right: 11px;
 
   width: 8px;
   height: 8px;
@@ -127,256 +136,248 @@
 }
 
 /* =========================
-   DAILY SUMMARY SECTION
+   SECTION HEADER
 ========================= */
 
-.dailySummary {
-  padding: 24px;
-}
-
-.sectionHeader {
+.homeSectionHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  margin-bottom: 24px;
+  gap: 12px;
 }
 
-.sectionHeader h3 {
+.homeSectionTitle {
   margin: 0;
+
+  color: #f5f5f7;
+
+  font-size: 18px;
+  font-weight: 850;
 }
 
-.sectionHeader span,
-.sectionHeader a {
+.homeSectionHeader a {
   color: var(--accent-purple);
-  font-size: 16px;
-  font-weight: 700;
+
+  font-size: 13px;
+  font-weight: 750;
+
   text-decoration: none;
 }
 
-.summaryContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
 /* =========================
-   PROGRESS CIRCLE
+   DAILY SUMMARY
 ========================= */
 
-.progressCircle {
-  width: 150px;
-  height: 150px;
+.homeDailySummary {
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.homeSummaryContent {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.homeProgressCircle {
+  width: 120px;
+  height: 120px;
 
   border-radius: 50%;
-
-  background:
-    radial-gradient(circle at center, #15161c 58%, transparent 59%),
-    conic-gradient(
-      var(--accent-purple) 0% 70%,
-      rgba(255, 255, 255, 0.08) 70% 100%
-    );
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.progressCircle div {
+.homeProgressCircle div {
   text-align: center;
 }
 
-.progressCircle strong {
+.homeProgressCircle strong {
   display: block;
-  font-size: 34px;
+
+  color: #f5f5f7;
+
+  font-size: 26px;
+  font-weight: 850;
 }
 
-.progressCircle p {
-  margin: 4px 0 0;
+.homeProgressCircle p {
+  margin: 3px 0 0;
+
   color: #8b8d98;
+
+  font-size: 11px;
+  font-weight: 700;
 }
 
 /* =========================
    SUMMARY LIST
 ========================= */
 
-.summaryList {
-  flex: 1;
-
+.homeSummaryList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
-.summaryItem {
-  display: flex;
+.homeSummaryItem {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
-.summaryItem p {
-  flex: 1;
-
+.homeSummaryItem p {
   margin: 0;
+
   color: #b4b4be;
+
+  font-size: 12px;
+  font-weight: 650;
 }
 
-.summaryItem strong {
-  font-size: 18px;
+.homeSummaryItem strong {
+  color: #f5f5f7;
+
+  font-size: 12.5px;
+  font-weight: 850;
+  white-space: nowrap;
 }
 
-.summaryIcon {
-  width: 42px;
-  height: 42px;
+.homeSummaryIcon {
+  width: 32px;
+  height: 32px;
 
-  border-radius: 14px;
+  border-radius: 11px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 850;
 }
 
 /* =========================
-   GLOBAL COLOR HELPERS
+   QUICK ACCESS
 ========================= */
 
-.purple {
-  background: rgba(139, 92, 246, 0.18);
-  color: var(--accent-purple);
-}
-
-.green {
-  background: rgba(34, 197, 94, 0.18);
-  color: var(--accent-green);
-}
-
-.orange {
-  background: rgba(251, 146, 60, 0.18);
-  color: var(--accent-orange);
-}
-
-.blue {
-  background: rgba(59, 130, 246, 0.18);
-  color: var(--accent-blue);
-}
-
-.greenText {
-  color: var(--accent-green);
-}
-
-.orangeText {
-  color: var(--accent-orange);
-}
-
-/* =========================
-   QUICK ACCESS SECTION
-========================= */
-
-.sectionTitle {
-  margin: 0;
-  text-align: start;
-  font-size: 20px;
-}
-
-.quickAccess {
+.homeQuickAccess {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
-.quickGrid {
+.homeQuickGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.quickGrid a {
+.homeQuickLink {
   text-decoration: none;
   color: inherit;
 }
 
-.quickCard {
-  min-height: 220px;
-  padding: 26px;
+.homeQuickCard {
+  min-height: 118px;
+  padding: 16px;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  gap: 22px;
-}
-
-.quickIcon {
-  width: 52px;
-  height: 52px;
+  justify-content: space-between;
+  gap: 14px;
 
   border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
+
+  transition: 0.2s ease;
+}
+
+.homeQuickCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.homeQuickIcon {
+  width: 46px;
+  height: 46px;
+
+  border-radius: 15px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  font-size: 22px;
 }
 
-.icons_home {
-  width: 24px;
-  height: 24px;
+.homeQuickIcon img {
+  width: 23px;
+  height: 23px;
   object-fit: contain;
 }
 
-.quickContent {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.homeQuickContent h4 {
+  margin: 0 0 5px;
+
+  color: #f5f5f7;
+
+  font-size: 15px;
+  font-weight: 850;
 }
 
-.quickTitle {
-  margin: 0;
-
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.quickText {
+.homeQuickContent p {
   margin: 0;
 
   color: #8d8f9b;
 
-  font-size: 18px;
-  line-height: 1.4;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 /* =========================
-   TODAY TASKS SECTION
+   TODAY TASKS
 ========================= */
 
-.todayTasks {
+.homeTodayTasks {
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 .homeTaskList {
+  padding: 10px;
+
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 
-  padding: 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
 }
-
-/* =========================
-   HOME TASK ITEM
-========================= */
 
 .homeTaskItem {
   min-height: 42px;
-  padding: 8px 10px;
+  padding: 8px 9px;
 
   display: grid;
   grid-template-columns: 24px 1fr auto auto;
@@ -384,8 +385,8 @@
   gap: 8px;
 
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.055);
+
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .homeCheckedBox,
@@ -398,28 +399,27 @@
   justify-content: center;
 
   border-radius: 7px;
+
   font-size: 12px;
   font-weight: 900;
 }
 
 .homeCheckedBox {
-  background: rgba(139, 92, 246, 0.22);
-  border: 1px solid rgba(139, 92, 246, 0.45);
-  color: #ffffff;
+  background: var(--accent-purple);
+  color: white;
 }
 
 .homeEmptyBox {
-  background: transparent;
-  border: 1.5px solid #343746;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
 }
 
-.homeTaskName {
+.homeTaskItem p {
   margin: 0;
-  text-align: left;
 
   color: #f5f5f7;
+
   font-size: 12.5px;
-  font-weight: 800;
+  font-weight: 750;
 
   white-space: nowrap;
   overflow: hidden;
@@ -428,60 +428,120 @@
 
 .homeTaskDone {
   text-decoration: line-through;
-  color: #8b8d98;
+  color: #777987 !important;
 }
 
 .homeTaskTag {
-  font-size: 10.5px;
-  font-weight: 850;
-  white-space: nowrap;
-}
-
-.homeTaskDate {
   padding: 4px 7px;
 
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.055);
 
-  color: #9ca3af;
   font-size: 10px;
   font-weight: 850;
   white-space: nowrap;
 }
 
-/* =========================
-   EMPTY TASKS MESSAGE
-========================= */
+.homeTaskDate {
+  color: #777987;
+
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
 
 .homeEmptyTasks {
-  height: 86px;
+  min-height: 90px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  border-radius: 14px;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.025);
+  text-align: center;
 }
 
-.homeEmptyTitle {
-  margin: 0 0 4px;
+.homeEmptyTasks h3 {
+  margin: 0 0 5px;
+
   color: #f5f5f7;
-  font-size: 14px;
+
+  font-size: 15px;
   font-weight: 850;
 }
 
-.homeEmptyText {
+.homeEmptyTasks p {
+  margin: 0;
+
   color: #8b8d98;
+
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 650;
 }
 
 /* =========================
-   TASK CATEGORY COLORS
+   WEEKLY PROGRESS
 ========================= */
+
+.homeWeeklyProgress {
+  min-height: 150px;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.homeMiniChart {
+  height: 90px;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: end;
+  gap: 9px;
+}
+
+.homeMiniChart span {
+  border-radius: 999px 999px 6px 6px;
+
+  background: linear-gradient(180deg, #8b5cf6, #4c1d95);
+}
+
+/* =========================
+   COLORS
+========================= */
+
+.homePurpleIcon {
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--accent-purple);
+}
+
+.homeGreenIcon {
+  background: rgba(34, 197, 94, 0.18);
+  color: var(--accent-green);
+}
+
+.homeOrangeIcon {
+  background: rgba(251, 146, 60, 0.18);
+  color: var(--accent-orange);
+}
+
+.homeBlueIcon {
+  background: rgba(59, 130, 246, 0.18);
+  color: var(--accent-blue);
+}
+
+.homeGreenText {
+  color: var(--accent-green) !important;
+}
+
+.homeOrangeText {
+  color: var(--accent-orange) !important;
+}
 
 .work {
   color: #a78bfa;
@@ -500,10 +560,37 @@
 }
 
 /* =========================
-   WEEKLY PROGRESS SECTION
+   RESPONSIVE
 ========================= */
 
-.weeklyProgress {
-  min-height: 220px;
-  padding: 24px;
+@media (max-width: 480px) {
+  .homeUserName {
+    font-size: 29px;
+  }
+
+  .homeSummaryContent {
+    grid-template-columns: 105px 1fr;
+  }
+
+  .homeProgressCircle {
+    width: 105px;
+    height: 105px;
+  }
+
+  .homeProgressCircle strong {
+    font-size: 23px;
+  }
+
+  .homeQuickCard {
+    min-height: 108px;
+    padding: 14px;
+  }
+
+  .homeTaskItem {
+    grid-template-columns: 24px 1fr auto;
+  }
+
+  .homeTaskDate {
+    display: none;
+  }
 }
