@@ -66,9 +66,7 @@ export default function BudgetPage() {
       amount: Number(newTransaction.amount),
       type: newTransaction.type,
       category:
-        newTransaction.type === "income"
-          ? "Income"
-          : newTransaction.category,
+        newTransaction.type === "income" ? "Income" : newTransaction.category,
       date: new Date().toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "short",
@@ -111,8 +109,7 @@ export default function BudgetPage() {
           className="addTransactionButton"
           onClick={() => setIsModalOpen(true)}
         >
-          <span className="addTransactionIcon">+</span>
-          <span>Add</span>
+          + Add
         </button>
       </section>
 
@@ -146,8 +143,8 @@ export default function BudgetPage() {
       </section>
 
       <section className="expensesSection">
-        <div className="sectionHeader">
-          <h3 className="sectionTitle">Expenses</h3>
+        <div className="budgetSectionHeader">
+          <h3 className="budgetSectionTitle">Expenses</h3>
           <span>{transactions.length} records</span>
         </div>
 
@@ -188,8 +185,9 @@ export default function BudgetPage() {
       </section>
 
       <section className="transactionsSection">
-        <div className="sectionHeader">
-          <h3 className="sectionTitle">Recent Transactions</h3>
+        <div className="budgetSectionHeader">
+          <h3 className="budgetSectionTitle">Recent Transactions</h3>
+          <span>{transactions.length} records</span>
         </div>
 
         <div className="transactionsList">
@@ -199,9 +197,9 @@ export default function BudgetPage() {
               <p>Add your first income or expense.</p>
             </div>
           ) : (
-            transactions.slice(0, 6).map((transaction) => (
+            transactions.map((transaction) => (
               <div className="transactionItem" key={transaction.id}>
-                <div>
+                <div className="transactionInfo">
                   <h4>{transaction.title}</h4>
                   <p>
                     {transaction.category} • {transaction.date}
