@@ -1,0 +1,75 @@
+.nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: 430px;
+  height: 86px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 10px 14px 18px;
+
+  background: rgba(13, 14, 18, 0.88);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.45);
+
+  z-index: 100;
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.menuItem,
+.menuItemActive {
+  width: 64px;
+  height: 60px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+  border-radius: 18px;
+
+  transition: 0.25s ease;
+}
+
+.menuItem img,
+.menuItemActive img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.menuItemActive {
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.menuItemActive img {
+  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.75));
+}
+
+.menuItem p,
+.menuItemActive p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.textDefault {
+  color: #777987;
+}
+
+.textActive {
+  color: var(--accent-purple);
+}

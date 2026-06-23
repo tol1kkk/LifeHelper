@@ -134,7 +134,9 @@ export default function HomePage({ tasks = [], profileData }) {
             <div className="homeSummaryItem">
               <span className="homeSummaryIcon homeGreenIcon">£</span>
               <p>Current Balance</p>
-              <strong className="homeGreenText">£{formatMoney(balance)}</strong>
+              <strong className="homeGreenText">
+                £{formatMoney(balance)}
+              </strong>
             </div>
 
             <div className="homeSummaryItem">
@@ -220,9 +222,7 @@ export default function HomePage({ tasks = [], profileData }) {
             todayTasks.map((task) => (
               <div className="homeTaskItem" key={task.id}>
                 <span
-                  className={
-                    task.completed ? "homeCheckedBox" : "homeEmptyBox"
-                  }
+                  className={task.completed ? "homeCheckedBox" : "homeEmptyBox"}
                 >
                   {task.completed ? "✓" : ""}
                 </span>
@@ -232,11 +232,11 @@ export default function HomePage({ tasks = [], profileData }) {
                 </p>
 
                 <span className={`homeTaskTag ${task.category.toLowerCase()}`}>
-                  {task.category}
+                  #{task.category}
                 </span>
 
                 <span className="homeTaskDate">
-                  {task.dueDate || "Today"}
+                  {task.dueDate || task.date || "Today"}
                 </span>
               </div>
             ))
