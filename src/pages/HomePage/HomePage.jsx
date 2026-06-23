@@ -1,144 +1,259 @@
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./HomePage.css";
 
-export default function HomePage() {
+function getLocalStorageData(key) {
+  try {
+    const savedData = localStorage.getItem(key);
+
+    if (savedData) {
+      return JSON.parse(savedData);
+    }
+
+    return [];
+  } catch (error) {
+    console.log(`Could not load ${key}:`, error);
+    return [];
+  }
+}
+
+function formatMoney(value) {
+  return Number(value).toLocaleString("en-GB");
+}
+
+function getAverageGoalProgress(goals) {
+  if (goals.length === 0) {
+    return 0;
+  }
+
+  const totalProgress = goals.reduce((sum, goal) => {
+    if (!goal.targetAmount || goal.targetAmount <= 0) {
+      return sum;
+    }
+
+    const progress = Math.min(
+      Math.round((goal.currentAmount / goal.targetAmount) * 100),
+      100,
+    );
+
+    return sum + progress;
+  }, 0);
+
+  return Math.round(totalProgress / goals.length);
+}
+
+export default function HomePage({ tasks = [], profileData }) {
+  const [budgetData, setBudgetData] = useState([]);
+  const [goalsData, setGoalsData] = useState([]);
+
+  useEffect(() => {
+    setBudgetData(getLocalStorageData("lifeHelperBudget"));
+    setGoalsData(getLocalStorageData("lifeHelperGoals"));
+  }, []);
+
+  const completedTasks = tasks.filter((task) => task.completed).length;
+  const totalTasks = tasks.length;
+
+  const taskProgress =
+    totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+  const income = budgetData
+    .filter((item) => item.type === "income")
+    .reduce((sum, item) => sum + item.amount, 0);
+
+  const expenses = budgetData
+    .filter((item) => item.type === "expense")
+    .reduce((sum, item) => sum + item.amount, 0);
+
+  const balance = income - expenses;
+
+  const goalProgress = getAverageGoalProgress(goalsData);
+
+  const todayTasks = tasks.slice(0, 3);
+
+  const userName = profileData?.name || "User";
+  const avatar = profileData?.avatar || "/userGrey.png";
+
   return (
     <main className="homePage">
       <header className="homeHeader">
-        <div>
-          <h2 className="greeting">Good evening,</h2>
-          <h1 className="userName">Anatolii 👋</h1>
-          <p className="subtitle">Here's your summary for today</p>
+        <div className="homeHeaderText">
+          <h2 className="homeGreeting">Good evening,</h2>
+          <h1 className="homeUserName">{userName} 👋</h1>
+          <p className="homeSubtitle">Here's your summary for today</p>
         </div>
 
-        <div className="headerActions">
-          <div className="avatar">
-            <img src="./userGrey.png" alt="User avatar" />
-          </div>
+        <div className="homeHeaderActions">
+          <NavLink to="/profile" className="homeAvatarLink">
+            <button className="homeAvatarButton">
+              <img src={avatar} alt="User avatar" />
+            </button>
+          </NavLink>
 
-          <button className="notificationButton">
+          <button className="homeNotificationButton">
             <img src="/bell.png" alt="Notifications" />
             <span></span>
           </button>
         </div>
       </header>
 
-      <section className="dailySummary card">
-        <div className="sectionHeader">
-          {/* <h3>Daily Summary</h3>
-          <span>›</span> */}
+      <section className="homeDailySummary">
+        <div className="homeSectionHeader">
+          <h3 className="homeSectionTitle">Daily Summary</h3>
+          <NavLink to="/statistics">View stats</NavLink>
         </div>
 
-        <div className="summaryContent">
-          <div className="progressCircle">
-            {/* <div>
-              <strong>70%</strong>
+        <div className="homeSummaryContent">
+          <div
+            className="homeProgressCircle"
+            style={{
+              background: `
+                radial-gradient(circle at center, #15161c 58%, transparent 59%),
+                conic-gradient(
+                  var(--accent-purple) 0% ${taskProgress}%,
+                  rgba(255,255,255,0.08) ${taskProgress}% 100%
+                )
+              `,
+            }}
+          >
+            <div>
+              <strong>{taskProgress}%</strong>
               <p>Progress</p>
-            </div> */}
+            </div>
           </div>
 
-          <div className="summaryList">
-            <div className="summaryItem">
-              {/* <span className="summaryIcon purple">✓</span>
+          <div className="homeSummaryList">
+            <div className="homeSummaryItem">
+              <span className="homeSummaryIcon homePurpleIcon">✓</span>
               <p>Tasks Completed</p>
-              <strong>7 / 10</strong> */}
+              <strong>
+                {completedTasks} / {totalTasks}
+              </strong>
             </div>
 
-            <div className="summaryItem">
-              {/* <span className="summaryIcon green">💳</span>
+            <div className="homeSummaryItem">
+              <span className="homeSummaryIcon homeGreenIcon">£</span>
               <p>Current Balance</p>
-              <strong className="greenText">£2,430</strong> */}
+              <strong className="homeGreenText">£{formatMoney(balance)}</strong>
             </div>
 
-            <div className="summaryItem">
-              {/* <span className="summaryIcon orange">◎</span>
+            <div className="homeSummaryItem">
+              <span className="homeSummaryIcon homeOrangeIcon">◎</span>
               <p>Goal Progress</p>
-              <strong className="orangeText">65%</strong> */}
+              <strong className="homeOrangeText">{goalProgress}%</strong>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="quickAccess">
-        <h3 className="sectionTitle">Quick Access</h3>
+      <section className="homeQuickAccess">
+        <h3 className="homeSectionTitle">Quick Access</h3>
 
-        <div className="quickGrid">
-          <NavLink to="/tasks">
-            <div className="quickCard card">
-              <span className="quickIcon purple"><img src="/check.png" alt="" className="icons_home"/></span>
-              <div className="quickContent">
-                <h4 className="quickTitle">Tasks</h4>
-                <p className="quickText">Manage your tasks</p>
+        <div className="homeQuickGrid">
+          <NavLink to="/tasks" className="homeQuickLink">
+            <div className="homeQuickCard">
+              <span className="homeQuickIcon homePurpleIcon">
+                <img src="/check.png" alt="" />
+              </span>
+
+              <div className="homeQuickContent">
+                <h4>Tasks</h4>
+                <p>Manage your tasks</p>
               </div>
             </div>
           </NavLink>
 
-          <NavLink to="/budget">
-            <div className="quickCard card">
-              <span className="quickIcon green"><img src="/wallet.png" alt="" className="icons_home"/></span>
-              <div className="quickContent">
-                <h4 className="quickTitle">Budget</h4>
-                <p className="quickText">Track income & expenses</p>
+          <NavLink to="/budget" className="homeQuickLink">
+            <div className="homeQuickCard">
+              <span className="homeQuickIcon homeGreenIcon">
+                <img src="/wallet.png" alt="" />
+              </span>
+
+              <div className="homeQuickContent">
+                <h4>Budget</h4>
+                <p>Track income & expenses</p>
               </div>
             </div>
           </NavLink>
 
-          <NavLink to="/goals">
-            <div className="quickCard card">
-              <span className="quickIcon orange"><img src="/target.png" alt="" className="icons_home"/></span>
-              <div className="quickContent">
-                <h4 className="quickTitle">Goals</h4>
-                <p className="quickText">Track your savings goals</p>
+          <NavLink to="/goals" className="homeQuickLink">
+            <div className="homeQuickCard">
+              <span className="homeQuickIcon homeOrangeIcon">
+                <img src="/target.png" alt="" />
+              </span>
+
+              <div className="homeQuickContent">
+                <h4>Goals</h4>
+                <p>Track your savings goals</p>
               </div>
             </div>
           </NavLink>
 
-          <NavLink to="/notes">
-            <div className="quickCard card">
-              <span className="quickIcon blue"><img src="/wirte.png" alt="" className="icons_home"/></span>
-              <div className="quickContent">
-                <h4 className="quickTitle">Notes</h4>
-                <p className="quickText">Your notes and ideas</p>
+          <NavLink to="/notes" className="homeQuickLink">
+            <div className="homeQuickCard">
+              <span className="homeQuickIcon homeBlueIcon">
+                <img src="/wirte.png" alt="" />
+              </span>
+
+              <div className="homeQuickContent">
+                <h4>Notes</h4>
+                <p>Your notes and ideas</p>
               </div>
             </div>
           </NavLink>
         </div>
       </section>
 
-      <section className="todayTasks">
-        <div className="sectionHeader">
-          <h3>Today's Tasks</h3>
-          <a href="/tasks">View all</a>
+      <section className="homeTodayTasks">
+        <div className="homeSectionHeader">
+          <h3 className="homeSectionTitle">Today's Tasks</h3>
+          <NavLink to="/tasks">View all</NavLink>
         </div>
 
-        <div className="taskList card">
-          <div className="taskItem">
-            <span className="checkedBox">✓</span>
-            <p>Gym workout</p>
-            <span className="tag greenTag">Health</span>
-            <span className="taskDate">Today</span>
-          </div>
+        <div className="homeTaskList">
+          {todayTasks.length === 0 ? (
+            <div className="homeEmptyTasks">
+              <h3>No tasks yet</h3>
+              <p>Add your first task to see it here.</p>
+            </div>
+          ) : (
+            todayTasks.map((task) => (
+              <div className="homeTaskItem" key={task.id}>
+                <span
+                  className={
+                    task.completed ? "homeCheckedBox" : "homeEmptyBox"
+                  }
+                >
+                  {task.completed ? "✓" : ""}
+                </span>
 
-          <div className="taskItem">
-            <span className="emptyBox"></span>
-            <p>Finish React project</p>
-            <span className="tag purpleTag">Work</span>
-            <span className="taskDate">Tomorrow</span>
-          </div>
+                <p className={task.completed ? "homeTaskDone" : ""}>
+                  {task.title}
+                </p>
 
-          <div className="taskItem">
-            <span className="emptyBox"></span>
-            <p>Study for exam</p>
-            <span className="tag blueTag">Study</span>
-            <span className="taskDate">Tomorrow</span>
-          </div>
+                <span className={`homeTaskTag ${task.category.toLowerCase()}`}>
+                  {task.category}
+                </span>
+
+                <span className="homeTaskDate">
+                  {task.dueDate || "Today"}
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </section>
 
-      <section className="weeklyProgress card">
-        <div className="sectionHeader">
-          <h3>Weekly Progress</h3>
-          <a href="/statistics">View stats</a>
+      <section className="homeWeeklyProgress">
+        <div className="homeSectionHeader">
+          <h3 className="homeSectionTitle">Weekly Progress</h3>
+          <NavLink to="/statistics">View stats</NavLink>
+        </div>
+
+        <div className="homeMiniChart">
+          {[35, 55, 45, 70, 80, 50, 40].map((height, index) => (
+            <span key={index} style={{ height: `${height}%` }}></span>
+          ))}
         </div>
       </section>
     </main>

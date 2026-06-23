@@ -10,13 +10,12 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 export default function App() {
   return (
-
-    // ПЕРЕХІД МІЖ СТОРІНКАМИ 
+    // ПЕРЕХІД МІЖ СТОРІНКАМИ
 
     <BrowserRouter>
       <div className="app">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage tasks={tasks} profileData={profileData} />} />
           <Route path="/tasks" element={<TasksPage />} />
           <Route path="/budget" element={<BudgetPage />} />
           <Route path="/goals" element={<GoalsPage />} />
@@ -28,4 +27,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
