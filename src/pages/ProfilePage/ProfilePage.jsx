@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./ProfilePage.css";
 
 export default function ProfilePage({ profileData, setProfileData }) {
+  const imagePath = import.meta.env.BASE_URL;
+
   const [selectedTheme, setSelectedTheme] = useState("Dark");
   const [activeModal, setActiveModal] = useState(null);
 
@@ -198,7 +200,7 @@ export default function ProfilePage({ profileData, setProfileData }) {
         </div>
 
         <img
-          src="/leclerc.png"
+          src={`${imagePath}leclerc.png`}
           alt="LifeHelper mascot"
           className="profileMascotImage"
         />

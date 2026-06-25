@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./TasksPage.css";
 
+const imagePath = import.meta.env.BASE_URL;
+
 const levelImage = {
-  High: "/hard.png",
-  Medium: "/medium.png",
-  Low: "/low.png",
+  High: `${imagePath}hard.png`,
+  Medium: `${imagePath}medium.png`,
+  Low: `${imagePath}low.png`,
 };
 
 const levelTopic = {

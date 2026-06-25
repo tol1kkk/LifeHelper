@@ -33,7 +33,7 @@ function getAverageGoalProgress(goals) {
 
     const progress = Math.min(
       Math.round((goal.currentAmount / goal.targetAmount) * 100),
-      100,
+      100
     );
 
     return sum + progress;
@@ -43,6 +43,8 @@ function getAverageGoalProgress(goals) {
 }
 
 export default function HomePage({ tasks = [], profileData }) {
+  const imagePath = import.meta.env.BASE_URL;
+
   const [budgetData, setBudgetData] = useState([]);
   const [goalsData, setGoalsData] = useState([]);
   const [taskHistory, setTaskHistory] = useState([]);
@@ -74,7 +76,7 @@ export default function HomePage({ tasks = [], profileData }) {
   const todayTasks = tasks.slice(0, 3);
 
   const userName = profileData?.name || "User";
-  const avatar = profileData?.avatar || "/userGrey.png";
+  const avatar = profileData?.avatar || `${imagePath}userGrey.png`;
 
   const homeChartData =
     taskHistory.length > 0
@@ -115,7 +117,7 @@ export default function HomePage({ tasks = [], profileData }) {
 
   const homeLinePath = homeChartPoints
     .map((point, index) =>
-      index === 0 ? `M ${point.x} ${point.y}` : `L ${point.x} ${point.y}`,
+      index === 0 ? `M ${point.x} ${point.y}` : `L ${point.x} ${point.y}`
     )
     .join(" ");
 
@@ -148,7 +150,7 @@ export default function HomePage({ tasks = [], profileData }) {
           </NavLink>
 
           <button className="homeNotificationButton">
-            <img src="/bell.png" alt="Notifications" />
+            <img src={`${imagePath}bell.png`} alt="Notifications" />
             <span></span>
           </button>
         </div>
@@ -191,9 +193,7 @@ export default function HomePage({ tasks = [], profileData }) {
             <div className="homeSummaryItem">
               <span className="homeSummaryIcon homeGreenIcon">£</span>
               <p>Current Balance</p>
-              <strong className="homeGreenText">
-                £{formatMoney(balance)}
-              </strong>
+              <strong className="homeGreenText">£{formatMoney(balance)}</strong>
             </div>
 
             <div className="homeSummaryItem">
@@ -212,7 +212,7 @@ export default function HomePage({ tasks = [], profileData }) {
           <NavLink to="/tasks" className="homeQuickLink">
             <div className="homeQuickCard">
               <span className="homeQuickIcon homePurpleIcon">
-                <img src="/check.png" alt="" />
+                <img src={`${imagePath}check.png`} alt="" />
               </span>
 
               <div className="homeQuickContent">
@@ -225,7 +225,7 @@ export default function HomePage({ tasks = [], profileData }) {
           <NavLink to="/budget" className="homeQuickLink">
             <div className="homeQuickCard">
               <span className="homeQuickIcon homeGreenIcon">
-                <img src="/wallet.png" alt="" />
+                <img src={`${imagePath}wallet.png`} alt="" />
               </span>
 
               <div className="homeQuickContent">
@@ -238,7 +238,7 @@ export default function HomePage({ tasks = [], profileData }) {
           <NavLink to="/goals" className="homeQuickLink">
             <div className="homeQuickCard">
               <span className="homeQuickIcon homeOrangeIcon">
-                <img src="/target.png" alt="" />
+                <img src={`${imagePath}target.png`} alt="" />
               </span>
 
               <div className="homeQuickContent">
@@ -251,7 +251,7 @@ export default function HomePage({ tasks = [], profileData }) {
           <NavLink to="/notes" className="homeQuickLink">
             <div className="homeQuickCard">
               <span className="homeQuickIcon homeBlueIcon">
-                <img src="/wirte.png" alt="" />
+                <img src={`${imagePath}wirte.png`} alt="" />
               </span>
 
               <div className="homeQuickContent">
