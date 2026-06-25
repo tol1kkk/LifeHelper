@@ -45,10 +45,12 @@ function getAverageGoalProgress(goals) {
 export default function HomePage({ tasks = [], profileData }) {
   const [budgetData, setBudgetData] = useState([]);
   const [goalsData, setGoalsData] = useState([]);
+  const [taskHistory, setTaskHistory] = useState([]);
 
   useEffect(() => {
     setBudgetData(getLocalStorageData("lifeHelperBudget"));
     setGoalsData(getLocalStorageData("lifeHelperGoals"));
+    setTaskHistory(getLocalStorageData("lifeHelperTaskHistory"));
   }, []);
 
   const completedTasks = tasks.filter((task) => task.completed).length;
@@ -73,6 +75,61 @@ export default function HomePage({ tasks = [], profileData }) {
 
   const userName = profileData?.name || "User";
   const avatar = profileData?.avatar || "/userGrey.png";
+
+  const homeChartData =
+    taskHistory.length > 0
+      ? taskHistory.map((item) => ({
+          label: new Date(item.date).toLocaleDateString("en-GB", {
+            weekday: "short",
+          }),
+          value: item.completionRate,
+        }))
+      : [
+          {
+            label: "Today",
+            value: taskProgress,
+          },
+        ];
+
+  const homeChartWidth = 320;
+  const homeChartHeight = 120;
+  const homeChartPadding = 14;
+  const homeMaxChartValue = 100;
+
+  const homeChartPoints = homeChartData.map((item, index) => {
+    const x =
+      homeChartData.length === 1
+        ? homeChartWidth / 2
+        : homeChartPadding +
+          (index * (homeChartWidth - homeChartPadding * 2)) /
+            (homeChartData.length - 1);
+
+    const y =
+      homeChartHeight -
+      homeChartPadding -
+      (item.value / homeMaxChartValue) *
+        (homeChartHeight - homeChartPadding * 2);
+
+    return { ...item, x, y };
+  });
+
+  const homeLinePath = homeChartPoints
+    .map((point, index) =>
+      index === 0 ? `M ${point.x} ${point.y}` : `L ${point.x} ${point.y}`,
+    )
+    .join(" ");
+
+  const homeAreaPath =
+    homeChartPoints.length > 1
+      ? `
+        ${homeLinePath}
+        L ${homeChartPoints[homeChartPoints.length - 1].x} ${
+          homeChartHeight - homeChartPadding
+        }
+        L ${homeChartPoints[0].x} ${homeChartHeight - homeChartPadding}
+        Z
+      `
+      : "";
 
   return (
     <main className="homePage">
@@ -250,10 +307,47 @@ export default function HomePage({ tasks = [], profileData }) {
           <NavLink to="/statistics">View stats</NavLink>
         </div>
 
-        <div className="homeMiniChart">
-          {[35, 55, 45, 70, 80, 50, 40].map((height, index) => (
-            <span key={index} style={{ height: `${height}%` }}></span>
-          ))}
+        <div className="homeLineChartBox">
+          <svg
+            className="homeLineChart"
+            viewBox={`0 0 ${homeChartWidth} ${homeChartHeight}`}
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient
+                id="homeTaskGradient"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop offset="0%" stopColor="rgba(139, 92, 246, 0.45)" />
+                <stop offset="100%" stopColor="rgba(139, 92, 246, 0)" />
+              </linearGradient>
+            </defs>
+
+            {homeChartPoints.length > 1 && (
+              <path className="homeChartArea" d={homeAreaPath} />
+            )}
+
+            <path className="homeChartLine" d={homeLinePath} />
+
+            {homeChartPoints.map((point, index) => (
+              <circle
+                key={`${point.label}-${index}`}
+                className="homeChartDot"
+                cx={point.x}
+                cy={point.y}
+                r="4"
+              />
+            ))}
+          </svg>
+
+          <div className="homeChartLabels">
+            {homeChartData.map((item, index) => (
+              <span key={`${item.label}-${index}`}>{item.label}</span>
+            ))}
+          </div>
         </div>
       </section>
     </main>
