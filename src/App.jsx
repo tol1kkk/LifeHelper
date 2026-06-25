@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage/HomePage";
 import TasksPage from "./pages/TasksPage/TasksPage";
@@ -38,7 +38,7 @@ export default function App() {
   }, [profileData]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app">
         <Routes>
           <Route
@@ -52,16 +52,26 @@ export default function App() {
           />
 
           <Route path="/budget" element={<BudgetPage />} />
-
           <Route path="/goals" element={<GoalsPage />} />
-
           <Route path="/notes" element={<NotesPage />} />
-          <Route path="/statistics" element={<StatisticsPage tasks={tasks} />} />
-          <Route path="/profile" element={<ProfilePage profileData={profileData} setProfileData={setProfileData} />} />
+          <Route
+            path="/statistics"
+            element={<StatisticsPage tasks={tasks} />}
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProfilePage
+                profileData={profileData}
+                setProfileData={setProfileData}
+              />
+            }
+          />
         </Routes>
 
         <BottomNav />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
